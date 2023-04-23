@@ -31,6 +31,7 @@ export default function Home() {
   const [userWord, setUserWord] = useState('')
   const [color, setColor] = useState('')
   const [inputColor, setInputColor] = useState('')
+  const [pokemon, setPokemon] = useState('https://lorempokemon.fakerapi.it/pokemon/200')
 
   const handleChange = (e) => {
     if (word.toUpperCase().startsWith(e.target.value.toUpperCase())) {
@@ -42,7 +43,6 @@ export default function Home() {
     setUserWord(e.target.value)
   }
 
-
   const checkWord = function () {
     if (word.toUpperCase() === userWord.toUpperCase()) {
       setColor('bg-green-600')
@@ -52,6 +52,7 @@ export default function Home() {
     setShow(true)
 
     setTimeout(() => {
+      setPokemon(`https://lorempokemon.fakerapi.it/pokemon/200/276?t=${Date.now()}`)
       setShow(false)
       setUserWord('')
       setWord(getRandomWord(words))
@@ -67,12 +68,18 @@ export default function Home() {
       <h1 className='text-white text-6xl'>Spelling Game</h1>
 
       {!show &&
-        <div className=' bg-yellow-600 w-96 h-96 flex justify-center items-center text-white transition-all duration-1000'>
+        <div
+          style={{
+            backgroundImage: `url(${pokemon})`
+          }}
+          className=' bg-yellow-600 w-96 h-96 flex justify-center items-center text-white transition-all duration-1000 bg-cover'>
           <PlayCircleIcon className='w-28' onClick={() => speakWord(word)} />
         </div>
       }
       {show &&
-        <div className={` w-96 h-96 flex justify-center items-center text-white text-3xl ${color}`}>
+        <div
+
+          className={` w-96 h-96 flex justify-center items-center text-white text-3xl ${color}`}>
           {word}
         </div>
       }
